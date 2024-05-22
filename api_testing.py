@@ -1,4 +1,5 @@
 import json
+import os
 
 from typing import Dict
 
@@ -8,6 +9,7 @@ import requests
 class API_Tester:
 
     def __init__(self, API_Name: str, API_URL: str, API_Headers: Dict[str, str]):
+        self.params = {}
         if not isinstance(API_Name, str):
             raise TypeError("\033[91mAPI_Name must be a String\033[0m")
         if not isinstance(API_URL, str):
@@ -21,14 +23,17 @@ class API_Tester:
 
     def writeToFile(self, json_file) -> bool:
         try:
-            with open(self.API_Name + '.json', 'w') as outfile:
+            if not os.path.exists(os.path.join(os.getcwd(), 'data')):
+                os.makedirs(os.path.join(os.getcwd(), 'data'))
+            with open(os.path.join(os.getcwd(), 'data', f'{self.API_Name} Response.json'), 'w') as outfile:
                 json.dump(json_file, outfile, indent=4)
             return True
         except (IOError, TypeError) as e:
             error_message = f"Error in \033[94m{self.API_Name}\033[0m, writeToFile function: \033[91m{str(e)}\033[0m"
             raise type(e)(error_message)
 
-    def query(self, params: Dict[str,str]):
+    def query(self, params: Dict[str, str]):
+        self.params = params
         self.writeToFile(requests.get(params=params, headers=self.API_Headers, url=self.API_URL).json())
 
 

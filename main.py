@@ -1,6 +1,17 @@
 from api_testing import API_Tester, createNewAPI
+from dataManager import dataManager
 
-api = createNewAPI("apis/ott_details.json")
+api = createNewAPI("apis/streaming_availability.json")
 
-query = {"title": "Endgame", "page": "1"}
+query = {
+    "country": "in",
+    "show_type": "movie",
+    "genres": "scifi",
+    "order_by": "rating",
+    "order_direction": "desc"
+}
 api.query(query)
+
+manager = dataManager(api)
+
+manager.createReport()
