@@ -1,12 +1,10 @@
 import json
 import os
-
 from typing import Dict
-
 import requests
 
 
-class API_Tester:
+class API_Handler:
 
     def __init__(self, API_Name: str, API_URL: str, API_Headers: Dict[str, str]):
         self.params = {}
@@ -37,11 +35,11 @@ class API_Tester:
         self.writeToFile(requests.get(params=params, headers=self.API_Headers, url=self.API_URL).json())
 
 
-def createNewAPI(json_file) -> API_Tester:
+def createNewAPI(json_file) -> API_Handler:
     try:
         with open(json_file, 'r') as params_file:
             params = json.load(params_file)
-            return API_Tester(API_Name=params['API_Name'], API_URL=params['API_URL'], API_Headers=params['API_Headers'])
+            return API_Handler(API_Name=params['API_Name'], API_URL=params['API_URL'], API_Headers=params['API_Headers'])
     except (IOError, json.JSONDecodeError) as e:
         raise type(e)(f"Error in createNewAPI function: \033[91m{str(e)}\033[0m")
 

@@ -1,5 +1,5 @@
 import os
-from api_testing import API_Tester, createNewAPI
+from api_handler import API_Handler, createNewAPI
 from dataManager import dataManager
 
 # Colored Output Testing
