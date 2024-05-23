@@ -317,5 +317,9 @@ $RECYCLE.BIN/
 data/
 
 
+# Removing APIs
+apis/
+
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,python,pycharm 
 
