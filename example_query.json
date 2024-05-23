@@ -3,7 +3,7 @@
   "params": {
     "country": "in",
     "show_type": "series",
-    "genres": "action, comedy",
+    "genres": "horror",
     "order_by": "rating",
     "order_direction": "desc",
     "genres_relation": "and"

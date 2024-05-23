@@ -2,7 +2,7 @@
     "API_Name": "OTT Details",
     "API_URL": "https://ott-details.p.rapidapi.com/advancedsearch",
     "API_Headers": {
-        "X-RapidAPI-Key": "66f49adab1mshf5c0e0fcef68f96p17e59bjsn0b794818edeb",
+        "X-RapidAPI-Key": "",
         "X-RapidAPI-Host": "ott-details.p.rapidapi.com"
     }
 }
