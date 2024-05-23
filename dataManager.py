@@ -2,11 +2,11 @@ import json
 from typing import Dict, Any
 import os
 
-from api_testing import API_Tester
+from api_handler import API_Handler
 
 
 class dataManager:
-    def __init__(self, api: API_Tester):
+    def __init__(self, api: API_Handler):
         self.jsonToRead = os.path.join(os.getcwd(), 'data', api.API_Name + ' Response.json')
         self.country_code = api.params['country']
 
