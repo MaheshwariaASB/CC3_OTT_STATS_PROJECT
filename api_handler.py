@@ -43,7 +43,7 @@ class API_Handler:
         self.writeToFile(requests.get(params=self.params, headers=self.API_Headers, url=self.API_URL).json())
 
 
-def createNewAPI(json_file) -> API_Handler:
+def createNewAPI(json_file: json, key: str) -> API_Handler:
     try:
         # params = json.load(json_file)
         if not os.path.exists(os.path.join(os.getcwd(), 'apis')):
@@ -51,6 +51,7 @@ def createNewAPI(json_file) -> API_Handler:
             raise FileNotFoundError()
         with open(os.path.join(os.getcwd(),"apis",json_file['API']), 'r') as file:
             params_api = json.load(file)
+            params_api['API_Headers']['X-RapidAPI-Key'] = key
             return API_Handler(API_Name=params_api['API_Name'], API_URL=params_api['API_URL'],
                                API_Headers=params_api['API_Headers'], API_Params=json_file['params'])
     except (IOError, json.JSONDecodeError) as e:

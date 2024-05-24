@@ -7,7 +7,7 @@ import sys
 from dataManager import dataManager
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
         try:
             file_path = sys.argv[1]
             if '.json' not in sys.argv[1]:
@@ -15,7 +15,8 @@ if __name__ == '__main__':
             if os.path.exists(os.path.join(os.getcwd(), file_path)):
                 with open(os.path.join(os.getcwd(), file_path)) as file_load:
                     data = json.load(file_load)
-                    api = createNewAPI(data)
+                    key = sys.argv[2]
+                    api = createNewAPI(data,key)
                     api.query()
                     manager = dataManager(api)
                     manager.createReport()

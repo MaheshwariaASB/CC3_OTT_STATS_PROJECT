@@ -2,8 +2,8 @@
   "API": "streaming_availability.json",
   "params": {
     "country": "in",
-    "show_type": "series",
-    "genres": "horror",
+    "show_type":"series",
+    "genres": "fantasy, scifi",
     "order_by": "rating",
     "order_direction": "desc",
     "genres_relation": "and"

@@ -19,22 +19,27 @@ class dataManager:
                     services = {}
                     for service in show['streamingOptions'][self.country_code]:
                         services[service['service']['name']] = {
+                            "service": service['service']['name'],
                             "type": service['type'],
                             "link": service['link'],
                             "price": service['price']['formatted'] if 'price' in service else 'N/A'
                         }
+                    genres = []
+                    for genre in show['genres']:
+                        genres.append(genre)
                     final[show['title']] = {
                         "id": show['imdbId'],
                         "overview": show['overview'],
                         "rating": show['rating'],
                         "image_link": show['imageSet']['verticalPoster']['w600'],
                         "streaming_options": services,
-                        "showType": show['showType']
+                        "showType": show['showType'],
+                        "genres": genres
                     }
             i = 1
-            while os.path.exists(os.path.join(os.getcwd(), 'data', f"formatted{i}{datetime.date.today()}.json")):
+            while os.path.exists(os.path.join(os.getcwd(), 'data', f"formatted{i} at {datetime.date.today()}.json")):
                 i += 1
-            with open(os.path.join(os.getcwd(), 'data', f"formatted{i}{datetime.date.today()}.json"), 'w') as file_save:
+            with open(os.path.join(os.getcwd(), 'data', f"formatted{i} at {datetime.date.today()}.json"), 'w') as file_save:
                 json.dump(final, file_save, indent=4)
 
             return final
