@@ -1,7 +1,7 @@
 import json
 from typing import Dict, Any
 import os
-
+import datetime
 from api_handler import API_Handler
 
 
@@ -28,12 +28,13 @@ class dataManager:
                         "overview": show['overview'],
                         "rating": show['rating'],
                         "image_link": show['imageSet']['verticalPoster']['w600'],
-                        "streaming_options": services
+                        "streaming_options": services,
+                        "showType": show['showType']
                     }
             i = 1
-            while os.path.exists(os.path.join(os.getcwd(), 'data', f"formatted{i}.json")):
+            while os.path.exists(os.path.join(os.getcwd(), 'data', f"formatted{i}{datetime.date.today()}.json")):
                 i += 1
-            with open(os.path.join(os.getcwd(), 'data', f"formatted{i}.json"), 'w') as file_save:
+            with open(os.path.join(os.getcwd(), 'data', f"formatted{i}{datetime.date.today()}.json"), 'w') as file_save:
                 json.dump(final, file_save, indent=4)
 
             return final
