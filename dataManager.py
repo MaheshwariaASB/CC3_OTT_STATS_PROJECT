@@ -10,7 +10,7 @@ class dataManager:
         self.jsonToRead = os.path.join(os.getcwd(), 'data', api.API_Name + ' Response.json')
         self.country_code = api.params['country']
 
-    def createReport(self) -> Dict[str, Any]:
+    def createReport(self, overwrite: bool) -> Dict[str, Any]:
         try:
             final = {}
             with (open(self.jsonToRead, 'r') as file):
@@ -36,11 +36,15 @@ class dataManager:
                         "showType": show['showType'],
                         "genres": genres
                     }
-            i = 1
-            while os.path.exists(os.path.join(os.getcwd(), 'data', f"formatted{i} at {datetime.date.today()}.json")):
-                i += 1
-            with open(os.path.join(os.getcwd(), 'data', f"formatted{i} at {datetime.date.today()}.json"), 'w') as file_save:
-                json.dump(final, file_save, indent=4)
+            if not overwrite:
+                i = 1
+                while os.path.exists(os.path.join(os.getcwd(), 'data', f"formatted{i} at {datetime.date.today()}.json")):
+                    i += 1
+                with open(os.path.join(os.getcwd(), 'data', f"formatted{i} at {datetime.date.today()}.json"), 'w') as file_save:
+                    json.dump(final, file_save, indent=4)
+            else:
+                with open(os.path.join(os.getcwd(), 'data', f"formatted.json"), 'w') as file_save:
+                    json.dump(final, file_save, indent=4
 
             return final
         except (IOError, json.JSONDecodeError) as e:

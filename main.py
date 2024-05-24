@@ -19,10 +19,10 @@ if __name__ == '__main__':
                     api = createNewAPI(data,key)
                     api.query()
                     manager = dataManager(api)
-                    manager.createReport()
+                    manager.createReport(False)
         except (IOError, json.JSONDecodeError) as e:
             raise type(e)(f"Error in reading or loading params file, please make sure it is a JSON and exists in the "
-                          f"current working directory")
+                          f"current working directory or the relative path is given.")
     else:
         raise IOError("Please provide a parameters file in the correct format. Please check the documentation to see "
                       "the format.")
