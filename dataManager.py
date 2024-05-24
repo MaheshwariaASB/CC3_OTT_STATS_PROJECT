@@ -44,7 +44,7 @@ class dataManager:
                     json.dump(final, file_save, indent=4)
             else:
                 with open(os.path.join(os.getcwd(), 'data', f"formatted.json"), 'w') as file_save:
-                    json.dump(final, file_save, indent=4
+                    json.dump(final, file_save, indent=4)
 
             return final
         except (IOError, json.JSONDecodeError) as e:
