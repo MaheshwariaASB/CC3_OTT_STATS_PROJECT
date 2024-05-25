@@ -2,6 +2,8 @@ import json
 from typing import Dict, Any
 import os
 import datetime
+
+import api_handler
 from api_handler import API_Handler
 
 
@@ -38,9 +40,9 @@ class dataManager:
                     }
             if not overwrite:
                 i = 1
-                while os.path.exists(os.path.join(os.getcwd(), 'data', f"formatted{i} at {datetime.date.today()}.json")):
+                while os.path.exists(os.path.join(os.getcwd(), 'data', f"{i}_{datetime.date.today()}.json")):
                     i += 1
-                with open(os.path.join(os.getcwd(), 'data', f"formatted{i} at {datetime.date.today()}.json"), 'w') as file_save:
+                with open(os.path.join(os.getcwd(), 'data', f"{i}_{datetime.date.today()}.json"), 'w') as file_save:
                     json.dump(final, file_save, indent=4)
             else:
                 with open(os.path.join(os.getcwd(), 'data', f"formatted.json"), 'w') as file_save:
@@ -48,4 +50,4 @@ class dataManager:
 
             return final
         except (IOError, json.JSONDecodeError) as e:
-            raise type(e)(f"Error in \033[94m {self.__class__.__name__}\033[0m, read function: \033[91m{str(e)}\033[0m")
+            raise type(e)(f"Error in \033[94m {self.__class__.__name__}\033[0m, createReport function: \033[91m{str(e)}\033[0m")

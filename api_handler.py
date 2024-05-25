@@ -41,7 +41,8 @@ class API_Handler:
 
     def query(self):
         self.writeToFile(requests.get(params=self.params, headers=self.API_Headers, url=self.API_URL).json())
-
+        with open(os.path.join(os.getcwd(), 'data', self.API_Name + ' Response.json'), 'r') as file:
+            file_json = json.load(file)
 
 def createNewAPI(json_file: json, key: str) -> API_Handler:
     try:
