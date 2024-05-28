@@ -22,6 +22,7 @@ class API_Handler:
         self.API_URL = API_URL
         self.API_Headers = API_Headers
         self.params = API_Params
+        self.maxPages = 5
 
     def writeToFile(self, json_file) -> bool:
         try:
@@ -40,9 +41,17 @@ class API_Handler:
     #     self.writeToFile(requests.get(params=params, headers=self.API_Headers, url=self.API_URL).json())
 
     def query(self):
-        self.writeToFile(requests.get(params=self.params, headers=self.API_Headers, url=self.API_URL).json())
-        with open(os.path.join(os.getcwd(), 'data', self.API_Name + ' Response.json'), 'r') as file:
-            file_json = json.load(file)
+        returned = requests.get(params=self.params, headers=self.API_Headers, url=self.API_URL).json()
+        # final = returned
+        final = {'name': self.API_Name, 'shows': returned['shows']}
+        loops = 1
+        while returned['hasMore'] and loops < self.maxPages:
+            returned = requests.get(params=self.params, headers=self.API_Headers, url=self.API_URL).json()
+            self.params['cursor'] = returned['nextCursor']
+            final['shows'] += returned['shows']
+            loops += 1
+        self.writeToFile(final)
+
 
 def createNewAPI(json_file: json, key: str) -> API_Handler:
     try:
@@ -50,7 +59,7 @@ def createNewAPI(json_file: json, key: str) -> API_Handler:
         if not os.path.exists(os.path.join(os.getcwd(), 'apis')):
             os.makedirs('apis')
             raise FileNotFoundError()
-        with open(os.path.join(os.getcwd(),"apis",json_file['API']), 'r') as file:
+        with open(os.path.join(os.getcwd(), "apis", json_file['API']), 'r') as file:
             params_api = json.load(file)
             params_api['API_Headers']['X-RapidAPI-Key'] = key
             return API_Handler(API_Name=params_api['API_Name'], API_URL=params_api['API_URL'],

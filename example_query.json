@@ -3,9 +3,9 @@
   "params": {
     "country": "in",
     "show_type":"series",
-    "genres": "fantasy",
+    "genres": "fantasy, horror",
     "order_by": "rating",
     "order_direction": "desc",
-    "genres_relation": "and"
+    "genres_relation": "or"
   }
 }

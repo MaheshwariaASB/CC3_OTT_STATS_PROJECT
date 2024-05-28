@@ -2,7 +2,7 @@
     "API_Name": "Streaming Availability",
     "API_URL": "https://streaming-availability.p.rapidapi.com/shows/search/filters",
     "API_Headers": {
-        "X-RapidAPI-Key": "66f49adab1mshf5c0e0fcef68f96p17e59bjsn0b794818edeb",
+        "X-RapidAPI-Key": "",
         "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com"
     }
 }
